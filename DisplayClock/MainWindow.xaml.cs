@@ -14,9 +14,9 @@ namespace DisplayClock
   {
     private readonly DispatcherTimer _timer;
 
-    // Rayon et centre de l'horloge analogique
+    // Rayon et centre de l'horloge analogique (canvas fixe 350x350)
     private const double ClockRadius = 175; // moitié de 350
-    private Point _center;
+    private static readonly Point Center = new Point(175, 175);
 
     public MainWindow()
     {
@@ -34,25 +34,8 @@ namespace DisplayClock
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-      _center = new Point(AnalogCanvas.ActualWidth / 2, AnalogCanvas.ActualHeight / 2);
-
-      if (_center.X == 0 || _center.Y == 0)
-      {
-        AnalogCanvas.SizeChanged += AnalogCanvas_SizeChanged;
-      }
-      else
-      {
-        InitAnalogClock();
-      }
-
-      UpdateClocks();
-    }
-
-    private void AnalogCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
-    {
-      _center = new Point(AnalogCanvas.ActualWidth / 2, AnalogCanvas.ActualHeight / 2);
       InitAnalogClock();
-      AnalogCanvas.SizeChanged -= AnalogCanvas_SizeChanged;
+      UpdateClocks();
     }
 
     private void Timer_Tick(object sender, EventArgs e)
@@ -75,8 +58,8 @@ namespace DisplayClock
     {
       TicksCanvas.Children.Clear();
 
-      Canvas.SetLeft(TicksCanvas, _center.X - ClockRadius);
-      Canvas.SetTop(TicksCanvas, _center.Y - ClockRadius);
+      Canvas.SetLeft(TicksCanvas, 0);
+      Canvas.SetTop(TicksCanvas, 0);
       TicksCanvas.Width = ClockRadius * 2;
       TicksCanvas.Height = ClockRadius * 2;
 
@@ -123,14 +106,11 @@ namespace DisplayClock
 
     private void SetHand(Line hand, double angle, double length, double thickness)
     {
-      if (_center.X == 0 || _center.Y == 0)
-        return;
-
       hand.StrokeThickness = thickness;
-      hand.X1 = _center.X;
-      hand.Y1 = _center.Y;
-      hand.X2 = _center.X + length * Math.Sin(angle);
-      hand.Y2 = _center.Y - length * Math.Cos(angle);
+      hand.X1 = Center.X;
+      hand.Y1 = Center.Y;
+      hand.X2 = Center.X + length * Math.Sin(angle);
+      hand.Y2 = Center.Y - length * Math.Cos(angle);
     }
   }
 }

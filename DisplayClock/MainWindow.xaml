@@ -27,29 +27,32 @@
             <!-- Onglet analogique -->
             <TabItem Header="Analogique">
                 <Grid Background="Black">
-                    <Canvas x:Name="AnalogCanvas">
-                        <!-- Cadran -->
-                        <Ellipse Width="350" Height="350"
-                                 Stroke="White" StrokeThickness="4"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center" />
+                    <!-- Grille 350x350 centrée pour que le cercle et les aiguilles soient au centre -->
+                    <Grid Width="350" Height="350"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Canvas x:Name="AnalogCanvas" Width="350" Height="350">
+                            <!-- Cadran -->
+                            <Ellipse Width="350" Height="350"
+                                     Stroke="White" StrokeThickness="4" />
 
-                        <!-- Marqueurs des heures -->
-                        <Canvas x:Name="TicksCanvas" />
+                            <!-- Marqueurs des heures -->
+                            <Canvas x:Name="TicksCanvas" />
 
-                        <!-- Aiguilles -->
-                        <Line x:Name="HourHand"
-                              Stroke="White" StrokeThickness="6"
-                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                            <!-- Aiguilles -->
+                            <Line x:Name="HourHand"
+                                  Stroke="White" StrokeThickness="6"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
 
-                        <Line x:Name="MinuteHand"
-                              Stroke="White" StrokeThickness="4"
-                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                            <Line x:Name="MinuteHand"
+                                  Stroke="White" StrokeThickness="4"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
 
-                        <Line x:Name="SecondHand"
-                              Stroke="Red" StrokeThickness="2"
-                              StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
-                    </Canvas>
+                            <Line x:Name="SecondHand"
+                                  Stroke="Red" StrokeThickness="2"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                        </Canvas>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>
