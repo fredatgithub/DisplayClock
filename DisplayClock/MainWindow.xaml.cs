@@ -63,6 +63,8 @@ namespace DisplayClock
       TicksCanvas.Width = ClockRadius * 2;
       TicksCanvas.Height = ClockRadius * 2;
 
+      double numberRadius = ClockRadius - 35; // position des chiffres (entre le centre et les traits)
+
       for (int i = 0; i < 12; i++)
       {
         double angle = i * 30 * Math.PI / 180;
@@ -86,6 +88,27 @@ namespace DisplayClock
         };
 
         TicksCanvas.Children.Add(tick);
+
+        // Chiffre de l'heure : 12 en haut, puis 1 à 11
+        int hourNumber = i == 0 ? 12 : i;
+        double numX = ClockRadius + numberRadius * Math.Sin(angle);
+        double numY = ClockRadius - numberRadius * Math.Cos(angle);
+
+        var text = new TextBlock
+        {
+          Text = hourNumber.ToString(),
+          Foreground = Brushes.White,
+          FontSize = 18,
+          FontWeight = FontWeights.Bold,
+          HorizontalAlignment = HorizontalAlignment.Center,
+          VerticalAlignment = VerticalAlignment.Center,
+          Width = 24,
+          Height = 24
+        };
+
+        TicksCanvas.Children.Add(text);
+        Canvas.SetLeft(text, numX - 12);
+        Canvas.SetTop(text, numY - 12);
       }
     }
 
