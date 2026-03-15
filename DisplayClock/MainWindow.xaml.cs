@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,6 +13,27 @@ namespace DisplayClock
   /// </summary>
   public partial class MainWindow : Window
   {
+    #region Économiseur d'écran Windows (SetThreadExecutionState)
+
+    private const uint ES_CONTINUOUS = 0x80000000;
+    private const uint ES_DISPLAY_REQUIRED = 0x00000002;
+    private const uint ES_SYSTEM_REQUIRED = 0x00000001;
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern uint SetThreadExecutionState(uint esFlags);
+
+    private static void PreventScreensaver()
+    {
+      SetThreadExecutionState(ES_CONTINUOUS | ES_DISPLAY_REQUIRED | ES_SYSTEM_REQUIRED);
+    }
+
+    private static void AllowScreensaver()
+    {
+      SetThreadExecutionState(ES_CONTINUOUS);
+    }
+
+    #endregion
+
     private readonly DispatcherTimer _timer;
 
     // Rayon et centre de l'horloge analogique (canvas fixe 350x350)
@@ -30,12 +52,20 @@ namespace DisplayClock
       _timer.Start();
 
       Loaded += MainWindow_Loaded;
+      Closed += MainWindow_Closed;
+
+      PreventScreensaver();
     }
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
       InitAnalogClock();
       UpdateClocks();
+    }
+
+    private void MainWindow_Closed(object sender, EventArgs e)
+    {
+      AllowScreensaver();
     }
 
     private void Timer_Tick(object sender, EventArgs e)
