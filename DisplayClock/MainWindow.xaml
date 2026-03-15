@@ -14,7 +14,7 @@
             <TabItem Header="Digital">
                 <Grid Background="Black">
                     <Viewbox Stretch="Uniform">
-                        <Grid Width="400" Height="200">
+                        <Grid Width="800" Height="200">
                             <TextBlock x:Name="DigitalClockText"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
