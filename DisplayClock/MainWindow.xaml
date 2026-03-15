@@ -10,28 +10,30 @@
         Background="Black">
     <Grid>
         <TabControl>
-            <!-- Onglet digital -->
+            <!-- Onglet digital : Viewbox pour agrandir l'heure avec la fenêtre -->
             <TabItem Header="Digital">
                 <Grid Background="Black">
-                    <TextBlock x:Name="DigitalClockText"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Text="00:00:00"
-                               FontFamily="Consolas"
-                               FontSize="120"
-                               FontWeight="Bold"
-                               Foreground="Lime"
-                               TextAlignment="Center" />
+                    <Viewbox Stretch="Uniform">
+                        <Grid Width="400" Height="200">
+                            <TextBlock x:Name="DigitalClockText"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Text="00:00:00"
+                                       FontFamily="Consolas"
+                                       FontSize="120"
+                                       FontWeight="Bold"
+                                       Foreground="Lime"
+                                       TextAlignment="Center" />
+                        </Grid>
+                    </Viewbox>
                 </Grid>
             </TabItem>
 
-            <!-- Onglet analogique -->
+            <!-- Onglet analogique : Viewbox pour agrandir le cadran avec la fenêtre -->
             <TabItem Header="Analogique">
                 <Grid Background="Black">
-                    <!-- Grille 350x350 centrée pour que le cercle et les aiguilles soient au centre -->
-                    <Grid Width="350" Height="350"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
+                    <Viewbox Stretch="Uniform">
+                        <Grid Width="350" Height="350">
                         <Canvas x:Name="AnalogCanvas" Width="350" Height="350">
                             <!-- Cadran -->
                             <Ellipse Width="350" Height="350"
@@ -53,7 +55,8 @@
                                   Stroke="Red" StrokeThickness="2"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
                         </Canvas>
-                    </Grid>
+                        </Grid>
+                    </Viewbox>
                 </Grid>
             </TabItem>
         </TabControl>
